@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "deals")
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Deal {
     /**
      * The deal's unique ID.
