@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
 
     /**
      * Handles exceptions thrown due to validation failures in controller method parameters
-     * annotated with {@link javax.validation.Valid} or {@link org.springframework.validation.annotation.Validated}.
+     * annotated with {@link jakarta.validation.Valid} or {@link org.springframework.validation.annotation.Validated}.
      * It extracts field error details from the {@link MethodArgumentNotValidException} and formats them into
      * a map of field names to error messages.
      *

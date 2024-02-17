@@ -1,6 +1,5 @@
 package bloomberg.deals.exception;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
