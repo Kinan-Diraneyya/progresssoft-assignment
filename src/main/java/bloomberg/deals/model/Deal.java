@@ -1,5 +1,6 @@
 package bloomberg.deals.model;
 
+import bloomberg.deals.validation.annotation.Currency;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -28,11 +29,13 @@ public class Deal {
      * The ISO code of the currency from which the amount is being exchanged.
      */
     @NotEmpty
+    @Currency
     String fromCurrencyIsoCode;
     /**
      * The ISO code of the currency to exchanged to.
      */
     @NotEmpty
+    @Currency
     String toCurrencyIsoCode;
     /**
      * The timestamp at which the exchange was made
