@@ -3,7 +3,7 @@ This file explains the application's basic usage and how it was created.
 
 ### Basic usage
 To run the application, do the following:
-* Clone the application from [my repo]()
+* Clone the application from [my repo](https://github.com/Kinan-Diraneyya/progresssoft-assignment/)
 * Make sure that docker is running
 * Navigate to the project's root and run `docker-compose up --build`
 
