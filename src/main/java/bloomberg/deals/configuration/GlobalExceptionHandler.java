@@ -1,5 +1,6 @@
 package bloomberg.deals.configuration;
 
+import bloomberg.deals.exception.RequestException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,16 +42,29 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * Handles exceptions thrown by business logic that must be transmitted to the user.
+     *
+     * @param ex The exception instance caught by this handler.
+     * @return The business error to show to the user.
+     */
+    @ExceptionHandler(RequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public String handleExceptions(RequestException ex) {
+        return ex.getResponseMessage();
+    }
+
+    /**
      * Provides a generic handler for all other exceptions that may occur in the application, which are not
      * explicitly handled by other exception handler methods.
      *
      * @param ex The exception instance caught by this handler.
-     * @return A simple string representation of the exception, intended for logging purposes rather than being exposed directly to clients.
+     * @return A generic 500 error.
      */
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public String handleExceptions(Exception ex) {
-        return ex.toString();
+        return "Unknown error";
     }
 }

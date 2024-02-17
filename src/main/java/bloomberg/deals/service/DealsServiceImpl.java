@@ -1,6 +1,7 @@
 package bloomberg.deals.service;
 
 import bloomberg.deals.dto.DealDto;
+import bloomberg.deals.exception.RequestException;
 import bloomberg.deals.model.Deal;
 import bloomberg.deals.repository.DealsRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,12 @@ public class DealsServiceImpl implements DealsService {
     @Override
     public Deal createDeal(DealDto dealDto) {
         log.info("Creating deal: {}", dealDto);
+
+        if (dealDto.getId() != null && dealsRepository.existsById(dealDto.getId())) {
+            log.error("Attempted to insert a deal that already exists, with id {}", dealDto.getId());
+            throw new RequestException("Deal with ID " + dealDto.getId() + " already exists.");
+        }
+
         Deal deal = modelMapper.map(dealDto, Deal.class);
         deal.setTimeStamp(LocalDateTime.now());
         Deal savedDeal = dealsRepository.save(deal);
@@ -57,7 +64,7 @@ public class DealsServiceImpl implements DealsService {
         log.info("Updating deal with ID: {}", deal.getId());
         if (deal.getId() == null || !dealsRepository.existsById(deal.getId())) {
             log.error("Attempted to update a deal that does not exist with ID: {}", deal.getId());
-            throw new IllegalArgumentException("Deal with ID " + deal.getId() + " does not exist.");
+            throw new RequestException("Deal with ID " + deal.getId() + " does not exist.");
         }
         Deal updatedDeal = dealsRepository.save(deal);
         log.info("Updated deal with ID: {}", updatedDeal.getId());
