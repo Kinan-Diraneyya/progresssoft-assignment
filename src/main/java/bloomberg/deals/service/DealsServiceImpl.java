@@ -1,13 +1,16 @@
 package bloomberg.deals.service;
 
+import bloomberg.deals.dto.DealDto;
 import bloomberg.deals.model.Deal;
 import bloomberg.deals.repository.DealsRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,10 +22,13 @@ import java.util.Optional;
 public class DealsServiceImpl implements DealsService {
 
     private final DealsRepository dealsRepository;
+    private final ModelMapper modelMapper;
 
     @Override
-    public Deal createDeal(Deal deal) {
-        log.info("Creating deal: {}", deal);
+    public Deal createDeal(DealDto dealDto) {
+        log.info("Creating deal: {}", dealDto);
+        Deal deal = modelMapper.map(dealDto, Deal.class);
+        deal.setTimeStamp(LocalDateTime.now());
         Deal savedDeal = dealsRepository.save(deal);
         log.info("Created deal with ID: {}", savedDeal.getId());
         return savedDeal;

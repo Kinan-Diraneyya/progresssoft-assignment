@@ -1,5 +1,6 @@
 package bloomberg.deals.service;
 
+import bloomberg.deals.dto.DealDto;
 import bloomberg.deals.model.Deal;
 import bloomberg.deals.repository.DealsRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,6 +8,8 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.modelmapper.ModelMapper;
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 import static org.mockito.ArgumentMatchers.any;
@@ -17,6 +20,9 @@ class DealsServiceImplTest {
 
     @Mock
     private DealsRepository dealsRepository;
+
+    @Mock
+    private ModelMapper modelMapper;
 
     @InjectMocks
     private DealsServiceImpl dealsService;
@@ -30,8 +36,9 @@ class DealsServiceImplTest {
     void createDeal_Success() {
         Deal deal = new Deal("1", "USD", "EUR", LocalDateTime.now(), 100.0);
         when(dealsRepository.save(any(Deal.class))).thenReturn(deal);
+        when(modelMapper.map(any(DealDto.class), eq(Deal.class))).thenReturn(deal);
 
-        Deal createdDeal = dealsService.createDeal(deal);
+        Deal createdDeal = dealsService.createDeal(new DealDto("1", "USD", "EUR", 100.0));
 
         assertNotNull(createdDeal);
         assertEquals("1", createdDeal.getId());

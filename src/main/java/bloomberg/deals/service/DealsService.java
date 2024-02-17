@@ -1,5 +1,6 @@
 package bloomberg.deals.service;
 
+import bloomberg.deals.dto.DealDto;
 import bloomberg.deals.model.Deal;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface DealsService {
      * @param deal the deal to create
      * @return the created deal
      */
-    Deal createDeal(Deal deal);
+    Deal createDeal(DealDto deal);
 
     /**
      * Retrieves a deal by its id.
