@@ -1,6 +1,7 @@
 package bloomberg.deals.configuration;
 
 import bloomberg.deals.exception.RequestException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +18,7 @@ import java.util.Map;
  * allowing for consistent responses to various exceptions that may occur during HTTP request processing.
  */
 @ControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     /**
@@ -65,6 +67,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public String handleExceptions(Exception ex) {
+        log.error("The request failed with the following exception: {}", ex.toString());
         return "Unknown error";
     }
 }
