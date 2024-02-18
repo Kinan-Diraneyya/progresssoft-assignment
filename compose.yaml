@@ -7,7 +7,7 @@ services:
       - mysql
     environment:
       SPRING_DATASOURCE_URL: 'jdbc:mysql://mysql:3306/bloomberg?serverTimezone=UTC'
-      SPRING_DATASOURCE_USERNAME: 'root'
+      SPRING_DATASOURCE_USERNAME: 'progresssoft'
       SPRING_DATASOURCE_PASSWORD: '123'
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
   mysql:
@@ -16,7 +16,7 @@ services:
       MYSQL_DATABASE: 'bloomberg'
       MYSQL_PASSWORD: '123'
       MYSQL_ROOT_PASSWORD: '123'
-      MYSQL_USER: 'root'
+      MYSQL_USER: 'progresssoft'
     ports:
       - "3306:3306"
     volumes:
